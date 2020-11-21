@@ -9,6 +9,35 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(
 
 gc = gspread.authorize(credentials)
 
+def getSonosAlbums(nfc_data):
+  global gc
+  try:
+    spreadsheet = gc.open("Vinyl NFC List")
+    get_group = nfc_data.lower().startswith("group:")
+    wks = spreadsheet.sheet1
+    album_id = nfc_data.split("group:")[1] if get_group else nfc_data
+    print("group? " + str(get_group))
+    print("album_id: " + album_id)
+    album_id_list = wks.col_values(1)
+    row_id = album_id_list.index(str(album_id))
+    row_vals = wks.row_values(row_id + 1)
+    if get_group:
+        group_id = row_vals[12]
+        group_id_list = wks.col_values(13)
+        group_row_vals = [wks.row_values(i + 1) for i, group_val in enumerate(group_id_list) if group_val == group_id]
+        group_row_vals.sort(key=lambda r: r[4])
+        print(group_row_vals)
+        return [(g[10], g[11]) for g in group_row_vals]
+    else:
+        return [(row_vals[10], row_vals[11])]
+    for x in enumerate(row_vals):
+        print(x)
+    
+  except gspread.exceptions.APIError:
+    gc = gspread.authorize(credentials)
+    return getSonosAlbums(nfc_data)      
+
+
 def matchGMusicId(album_id):
   try:
     spreadsheet = gc.open("Vinyl NFC List")

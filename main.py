@@ -20,15 +20,17 @@ class TagReader:
       self.previous_id = album_id
       print "attempting to match against gspread"
       try:
-        gmusic_match = gsheetreading.matchGMusicId(record.data)
-        if type(gmusic_match) == list:
-          replacer.replace_queue_with_song_list(gmusic_match, replacer.get_tv())
-        else:
-          replacer.replace_queue_with_album(gmusic_match, replacer.get_tv())
+        sonos_albums = gsheetreading.getSonosAlbums(record.data)
+        replacer.replace_queue_with_album_list(sonos_albums)
+        # gmusic_match = gsheetreading.matchGMusicId(record.data)
+        # if type(gmusic_match) == list:
+        #   replacer.replace_queue_with_song_list(gmusic_match, replacer.get_tv())
+        # else:
+        #   replacer.replace_queue_with_album(gmusic_match, replacer.get_tv())
       except ValueError:
         print "Couldn't find album ID for record data: " + str(record.data)
     else:
-      print "album_id is None or same as previous"
+      print "nfc data is None or same as previous"
     return True
 
   def readTag(self):
