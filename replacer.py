@@ -11,7 +11,7 @@ def replace_queue_with_album_list(album_list):
     else:
       print("Adding tracks for " + artist + " | " + album)
       tv_room.add_multiple_to_queue(tracklist)
-    tv.play()
+      tv_room.play()
 
 def get_tv_room():
   players = list(soco.discover())
