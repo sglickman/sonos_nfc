@@ -27,7 +27,7 @@ def getSonosAlbums(nfc_data):
         group_row_vals = [wks.row_values(i + 1) for i, group_val in enumerate(group_id_list) if group_val == group_id]
         group_row_vals.sort(key=lambda r: r[4])
         print(group_row_vals)
-        return [(g[10], g[11]) for g in group_row_vals]
+        return [(g[10], g[11]) for g in group_row_vals if g[6] != 'SKIP']
     else:
         return [(row_vals[10], row_vals[11])]
     for x in enumerate(row_vals):
