@@ -3,7 +3,7 @@ import soco
 def replace_queue_with_album_list(album_list):
   coordinator = get_tv_room().group.coordinator
   #tv_room.unjoin()
-  #tv_room.clear_queue()
+  coordinator.clear_queue()
   for artist, album in album_list:
     tracklist = coordinator.music_library.get_tracks_for_album(str(artist), str(album))
     if len(tracklist) == 0:
