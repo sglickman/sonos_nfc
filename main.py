@@ -27,8 +27,9 @@ class TagReader:
         #   replacer.replace_queue_with_song_list(gmusic_match, replacer.get_tv())
         # else:
         #   replacer.replace_queue_with_album(gmusic_match, replacer.get_tv())
-      except ValueError:
+      except ValueError as err:
         print "Couldn't find album ID for record data: " + str(record.data)
+        print err
     else:
       print "nfc data is None or same as previous"
     return True
