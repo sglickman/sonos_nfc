@@ -14,7 +14,11 @@ def replace_queue_with_album_list(album_list):
       coordinator.play()
 
 def get_tv_room():
-  players = list(soco.discover())
-  for player in players:
-    if "TV" in player.player_name:
-      return player
+  p = None
+  while p is None:
+    print("Finding TV room.")
+    players = list(soco.discover())
+    for player in players:
+      if "TV" in player.player_name:
+        p = player
+  return p
