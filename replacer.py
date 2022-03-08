@@ -11,7 +11,7 @@ def replace_queue_with_album_list(album_list):
     else:
       print("Adding tracks for " + artist + " | " + album)
       coordinator.add_multiple_to_queue(tracklist)
-      coordinator.play()
+      coordinator.play_from_queue(0)
 
 def get_tv_room():
   p = None
