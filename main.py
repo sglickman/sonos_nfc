@@ -7,6 +7,8 @@ class TagReader:
   previous_id = None
 
   def workWithTag(self, tag):
+    print("Found tag.")
+    print(tag)
     if tag.ndef is None:
       return False
     album_id = None
